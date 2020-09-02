@@ -1,0 +1,9 @@
+document.getElementById('search-for-user').addEventListener('keyup', search)
+
+
+function search(e) {
+
+    const user = new Users(e.target.value)
+    user.getUser()
+    user.getUserRepo()
+}

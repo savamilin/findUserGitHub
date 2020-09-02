@@ -1,0 +1,140 @@
+function clearing() {
+    document.getElementById('img').innerHTML = ''
+    document.querySelectorAll('div#info p.css-info').forEach(p => p.outerHTML = '')
+}
+
+
+var cuntMessage = 0
+
+
+
+class Users {
+
+    constructor(user) {
+        this.user = user;
+        this.client_id = '70e3d550ef61b0b249c5'
+        this.client_secret = 'bd76ac58ed9b3554209432173ee2660ad06a4faa'
+
+        this.repos_count = 6
+        this.repos_sort = 'created: asc'
+    }
+
+    getUser() {
+        fetch(`https://api.github.com/users/${this.user}?${this.client_id}&${this.client_secret}`)
+            .then(res => res.json())
+            .then(data => {
+
+                //    clearing
+                clearing()
+                    // 
+                console.log(data)
+
+                const divImg = document.getElementById('img')
+                const img = document.createElement('img')
+                img.setAttribute('id', 'avatar')
+                img.src = data.avatar_url
+
+
+                // users button
+                const linkUser = document.createElement('a')
+                linkUser.href = data.html_url
+                linkUser.style.display = 'block'
+                linkUser.classList.add('link')
+                linkUser.innerHTML = 'View Profil'
+
+                divImg.appendChild(img)
+                divImg.appendChild(linkUser)
+
+                const pargrName = document.createElement('p')
+                pargrName.innerHTML = 'Name: ' + data.name
+                pargrName.setAttribute('class', 'css-info')
+
+                const pargrLocation = document.createElement('p')
+                pargrLocation.innerHTML = 'Location: ' + data.location
+                pargrLocation.setAttribute('class', 'css-info')
+
+                const pargrFollowers = document.createElement('p')
+                pargrFollowers.innerHTML = 'Followers: ' + data.followers
+                pargrFollowers.setAttribute('class', 'css-info')
+
+
+                const pargrFollowing = document.createElement('p')
+                pargrFollowing.innerHTML = 'Followers: ' + data.following
+                pargrFollowing.setAttribute('class', 'css-info')
+
+
+                const pargrEmail = document.createElement('p')
+                pargrEmail.innerHTML = 'Email: ' + data.email
+                pargrEmail.setAttribute('class', 'css-info')
+
+
+                document.getElementById('info').appendChild(pargrName)
+                document.getElementById('info').appendChild(pargrLocation)
+                document.getElementById('info').appendChild(pargrFollowers)
+                document.getElementById('info').appendChild(pargrFollowing)
+                document.getElementById('info').appendChild(pargrEmail)
+
+
+                const search = document.getElementById('search-for-user').value
+
+                // clearing if noting is on search input no value
+                if (search === '') clearing()
+
+
+                // 
+            })
+            .catch(err => {
+                // count message to show only one message at the time
+                cuntMessage++
+                if (cuntMessage === 1) {
+
+                    const notFound = document.createElement('div')
+                    notFound.classList.add('notFonud')
+                    notFound.innerHTML = 'Not Found'
+
+                    const search = document.getElementById('search-for-user')
+
+                    document.getElementById('container').insertBefore(notFound, search)
+
+                    setTimeout(() => {
+
+                        notFound.outerHTML = ''
+                        cuntMessage = 0
+
+
+
+                    }, 2000)
+                    console.log(err)
+                }
+
+            })
+
+
+    }
+
+    getUserRepo() {
+
+        fetch(`https://api.github.com/users/${this.user}/repos?per_page=${this.repos_count}&sort=${this.repos_sort}${this.client_id}&${this.client_secret}`)
+            .then(res => res.json())
+            .then(repos => {
+                console.log(repos)
+
+                var latestRepo = ''
+
+                repos.forEach(repo => {
+
+                    latestRepo +=
+                        `
+                         <p>${repo.name} <span class='watcher' >watchers: ${repo.watchers}</span> <span class='forks'>forks: ${repo.forks}</span></p>
+                     `
+
+                })
+
+                document.getElementById('repo').innerHTML = '<h2>Latest Repo</h2>' + latestRepo
+
+
+
+
+            })
+    }
+}

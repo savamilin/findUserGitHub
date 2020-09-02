@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+}
+
+header {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: white;
+    margin: 0;
+}
+
+#container {
+    margin: auto;
+    width: 800px;
+}
+
+#search-for-user {
+    padding: 10px;
+    width: 500px;
+    margin-top: 50px;
+    margin-left: 150px;
+    margin-top: 10px;
+}
+
+#main-profil {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info {
+    text-align: center;
+    font-size: 24px;
+}
+
+
+/* user not found */
+
+.notFonud {
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid red;
+    padding: 10px;
+    color: red;
+}
+
+
+/* user link */
+
+.link {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+/* img */
+
+#img,
+#info {
+    margin-top: 50px;
+}
+
+#avatar {
+    width: 300px;
+}
+
+
+/* info */
+
+.css-info {
+    border: 1px solid black;
+    padding: 10px 40px;
+}
+
+.css-info:hover {
+    background-color: black;
+    color: white;
+}
+
+#repo {
+    margin: auto;
+    width: 800px;
+    margin-top: 50px;
+}
+
+#repo p {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#repo p:hover {
+    background-color: black;
+    color: white;
+}
+
+footer {
+    background-color: black;
+    padding: 5px;
+}
+
+footer p {
+    color: white;
+    text-align: center;
+}
+
+.watcher {
+    color: blue;
+}
+
+.forks {
+    color: red
+}
